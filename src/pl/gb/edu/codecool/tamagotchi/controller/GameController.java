@@ -82,11 +82,11 @@ public class GameController {
         }
 
         keyFrame = new KeyFrame(new Duration(500), event -> {
+            pet_picture.setImage(image);
+            main_panel.styleProperty().set("-fx-background-color:" + pet.getBackground());
 
             if (game.isPetAlive()) {
                 setVisualParameters();
-
-
             } else {
                 timeline.stop();
                 try {
@@ -187,33 +187,28 @@ public class GameController {
         setButtonsStates();
         setProgressBarValues();
 
-        if (energy >= 0 && energy < 0.01) {
-            pet.setBackground("black");
-            pet.setPicture("Gollum_death.jpg");
-        } else if (hunger >= 0 && hunger < 0.01) {
-            pet.setPicture("Gollum_angry.png");
-            pet.setBackground("red");
-        } else if ((energy >= 0.01 && energy <= 0.2) || (hunger > 0.01  && hunger < 0.2)) {
-            pet.setPicture("Gollum_angry.png");
-            pet.setBackground("red");
+        if (hunger >= 0 && hunger < 0.01) {
+            pet.petIsAngry();
+        } else if(energy <= 0) {
+            pet.petIsDead();
+        } else if ((energy >= 0.01 && energy <= 0.2)) {
+            pet.petIsAngry();
         } else if ((energy > 0.2 && energy < 0.5) || (hunger > 0.2  && hunger < 0.5)) {
-            pet.setPicture("Gollum_imploring.png");
-            pet.setBackground("orange");
+            pet.petIsSad();
         } else {
-            pet.setPicture("Gollum_happy.png");
-            pet.setBackground("green");
+            pet.petIsHappy();
         }
 
         if (pet.isEating()) {
-            pet.setPicture("Gollum_eating.jpg");
+            pet.petIsEating();
         }
 
         if (pet.isBathing()) {
-            pet.setPicture("Gollum_bathing.jpg");
+            pet.petIsBathing();
         }
 
         if (pet.isSleeping()) {
-            pet.setPicture("Gollum_sleeping.jpg");
+            pet.petIsSleeping();
         }
     }
 

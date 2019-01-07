@@ -19,8 +19,7 @@ public class Pet {
     }
 
     private void initialParameters() {
-        picture = "Gollum_happy.png";
-        background = "green";
+        petIsHappy();
         energy = 1;
         hunger = 1;
         hygiene = 1;
@@ -42,7 +41,7 @@ public class Pet {
                 energy = 1;
                 break;
             }
-            petIsLive();
+            petIsLiving();
         }
         sleeping = false;
         notify();
@@ -58,7 +57,7 @@ public class Pet {
                 hunger = 1;
                 break;
             }
-            petIsLive();
+            petIsLiving();
         }
         eating = false;
         notify();
@@ -74,13 +73,13 @@ public class Pet {
                 hygiene = 1;
                 break;
             }
-            petIsLive();
+            petIsLiving();
         }
         bathing = false;
         notify();
     }
 
-    public void petIsLive() {
+    public void petIsLiving() {
         decreaseHunger();
         decreaseHygiene();
         decreaseEnergy();
@@ -97,7 +96,7 @@ public class Pet {
 
     synchronized private void decreaseEnergy() {
         changeEnergyModifier();
-        if (alive) {
+        if (energy > 0) {
             energy -= energyModifier * 0.001;
         } else {
             energy = 0;
@@ -107,7 +106,7 @@ public class Pet {
 
     private void changeEnergyModifier() {
         if (hunger <= 0) {
-            energyModifier = 3;
+            energyModifier = 10;
         } else {
             energyModifier = 1;
         }
@@ -129,6 +128,38 @@ public class Pet {
         }
     }
 
+    public void petIsAngry() {
+        setPicture("Gollum_angry.png");
+        setBackground("red");
+    }
+
+    public void petIsHappy() {
+        setPicture("Gollum_happy.png");
+        setBackground("green");
+    }
+
+    public void petIsSad() {
+        setPicture("Gollum_imploring.png");
+        setBackground("orange");
+    }
+
+    public void petIsDead() {
+        setPicture("Gollum_death.jpg");
+        setBackground("black");
+    }
+
+    public void petIsSleeping() {
+        setPicture("Gollum_sleeping.jpg");
+    }
+
+    public void petIsEating() {
+        setPicture("Gollum_eating.jpg");
+    }
+
+    public void petIsBathing() {
+        setPicture("Gollum_bathing.jpg");
+    }
+
     public double getEnergy() {
         return energy;
     }
@@ -139,10 +170,6 @@ public class Pet {
 
     public void setPicture(String picture) {
         this.picture = picture;
-    }
-
-    public void setEnergy(double energy) {
-        this.energy = energy;
     }
 
     public double getHunger() {

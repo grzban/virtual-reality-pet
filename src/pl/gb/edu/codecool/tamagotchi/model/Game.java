@@ -11,7 +11,7 @@ public class Game implements Runnable {
     @Override
     public void run() {
         while (isPetAlive()) {
-            pet.petIsLive();
+            pet.petIsLiving();
             System.out.println("ENERGY\t" + pet.getEnergy() + "\tHYGIENE\t" + pet.getHygiene() + "\tHUNGER\t" + pet.getHygiene());
 
             if(pet.isBathing()) {
