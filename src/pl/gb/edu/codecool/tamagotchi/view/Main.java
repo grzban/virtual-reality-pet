@@ -26,10 +26,9 @@ public class Main extends Application {
         Scene scene = new Scene(root, WIDTH, HEIGHT);
 
         primaryStage.setOnCloseRequest(event -> {
-            System.out.println(event);
             System.out.println("pressed close button");
-            controller.getGame().getPet().setEnergy(0);
-            controller.getGame().getPet().setSleeping(false);
+            controller.getPet().setEnergy(0);
+            controller.getPet().setSleeping(false);
         });
 
         primaryStage.setTitle("Tamagotchi - Virtual Reality Pet");

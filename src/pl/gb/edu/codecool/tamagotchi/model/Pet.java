@@ -7,6 +7,7 @@ public class Pet {
     private double energy;
     private double hunger;
     private double hygiene;
+    private double energyModifier;
 
     private boolean sleeping;
     private boolean eating;
@@ -25,7 +26,9 @@ public class Pet {
 
         sleeping = false;
         eating = false;
-        bathing =false;
+        bathing = false;
+
+        energyModifier = 1;
     }
 
     synchronized public void sleep() {
@@ -44,7 +47,7 @@ public class Pet {
     }
 
     synchronized public void eat() {
-        int endTime = 5;
+        int endTime = 25;
         for (int i = 0; i < endTime; i++) {
             System.out.println("Eating " + i + "\tHUNGER\t" + hunger);
             if (hunger < 1) {
@@ -60,7 +63,7 @@ public class Pet {
     }
 
     synchronized public void bath() {
-        int endTime = 5;
+        int endTime = 15;
         for (int i = 0; i < endTime; i++) {
             System.out.println("Bath " + i + "\tHYGIENE\t" + hygiene);
             if (hygiene < 1) {
@@ -91,15 +94,32 @@ public class Pet {
     }
 
     synchronized private void decreaseEnergy() {
-        energy -= 0.001;
+        changeEnergyModifier();
+        energy -= energyModifier * 0.001;
+    }
+
+    private void changeEnergyModifier() {
+        if (hunger <= 0) {
+            energyModifier = 1.5;
+        } else {
+            energyModifier = 1;
+        }
     }
 
     synchronized public void decreaseHunger() {
-        hunger -= 0.005;
+        if (hunger <= 0) {
+            hunger = 0;
+        } else {
+            hunger -= 0.005;
+        }
     }
 
     synchronized public void decreaseHygiene() {
-        hygiene -= 0.0005;
+        if (hygiene <= 0) {
+            hygiene = 0;
+        } else {
+            hygiene -= 0.0005;
+        }
     }
 
     public double getEnergy() {

@@ -1,12 +1,11 @@
 package pl.gb.edu.codecool.tamagotchi.model;
 
 public class Game implements Runnable {
-    private Thread gameThreat;
+
     private Pet pet;
 
-    public Game() {
-        pet = new Pet();
-        gameThreat = new Thread(this, "GAME");
+    public Game(Pet pet) {
+       this.pet = pet;
     }
 
     @Override
@@ -38,13 +37,5 @@ public class Game implements Runnable {
         } else {
             return false;
         }
-    }
-
-    public Thread getGameThreat() {
-        return gameThreat;
-    }
-
-    public Pet getPet() {
-        return pet;
     }
 }
