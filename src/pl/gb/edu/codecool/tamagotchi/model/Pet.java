@@ -48,33 +48,25 @@ public class Pet {
     }
 
     synchronized public void eat() {
-        int endTime = 25;
-        for (int i = 0; i < endTime; i++) {
-            System.out.println("Eating " + i + "\tHUNGER\t" + hunger);
-            if (hunger < 1) {
-                hunger += 0.1;
-            } else {
-                hunger = 1;
-                break;
-            }
+        while (hunger < 1) {
+            System.out.println("Eating HUNGER\t" + hunger);
+            hunger += 0.1;
             petIsLiving();
+            sleepPerSecond();
         }
+        hunger = 1;
         eating = false;
         notify();
     }
 
     synchronized public void bath() {
-        int endTime = 15;
-        for (int i = 0; i < endTime; i++) {
-            System.out.println("Bath " + i + "\tHYGIENE\t" + hygiene);
-            if (hygiene < 1) {
-                hygiene += 0.05;
-            } else {
-                hygiene = 1;
-                break;
-            }
+        while (hygiene < 1) {
+            System.out.println("Bath HYGIENE\t" + hygiene);
+            hygiene += 0.05;
             petIsLiving();
+            sleepPerSecond();
         }
+        hygiene = 1;
         bathing = false;
         notify();
     }
