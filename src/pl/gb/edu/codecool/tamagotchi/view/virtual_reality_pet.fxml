@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="pl.gb.edu.codecool.tamagotchi.controller.GameController"
+            prefHeight="400.0" prefWidth="600.0">
+    <fx:define>
+        <Font fx:id="FONT_HEADER" size="18" name="System Bold"/>
+    </fx:define>
+
+    <top>
+        <HBox alignment="CENTER" prefHeight="50">
+            <Label font="$FONT_HEADER">
+                <HBox.margin>
+                    <Insets left="5.0" right="5.0"/>
+                </HBox.margin>
+                ENERGY
+            </Label>
+            <Label fx:id="energy_progress_bar_value">
+                <HBox.margin>
+                    <Insets left="5.0" right="5.0"/>
+                </HBox.margin>
+                ENERGY
+            </Label>
+            <ProgressBar fx:id="energy_progress_bar" progress="1">
+                <HBox.margin>
+                    <Insets left="5.0" right="25.0"/>
+                </HBox.margin>
+            </ProgressBar>
+            <Label font="$FONT_HEADER">
+                <HBox.margin>
+                    <Insets left="5.0" right="5.0"/>
+                </HBox.margin>
+                HUNGER
+            </Label>
+            <Label fx:id="hunger_progress_bar_value">
+                <HBox.margin>
+                    <Insets left="5.0" right="5.0"/>
+                </HBox.margin>
+                ENERGY
+            </Label>
+            <ProgressBar fx:id="hunger_progress_bar">
+                <HBox.margin>
+                    <Insets left="5.0" right="25.0"/>
+                </HBox.margin>
+            </ProgressBar>
+            <Label font="$FONT_HEADER">
+                <HBox.margin>
+                    <Insets left="5.0" right="5.0"/>
+                </HBox.margin>
+                HYGIENE
+            </Label>
+            <Label fx:id="hygiene_progress_bar_value">
+                <HBox.margin>
+                    <Insets left="5.0" right="5.0"/>
+                </HBox.margin>
+                ENERGY
+            </Label>
+            <ProgressBar fx:id="hygiene_progress_bar">
+                <HBox.margin>
+                    <Insets left="5.0" right="25.0"/>
+                </HBox.margin>
+            </ProgressBar>
+        </HBox>
+    </top>
+    <center>
+        <HBox fx:id="main_panel" style="-fx-background-color: green;" alignment="CENTER">
+            <ImageView fx:id="pet_picture">
+
+            </ImageView>
+        </HBox>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER" prefHeight="50">
+            <Button fx:id="sleep_button" prefHeight="26.0" prefWidth="100.0" text="SLEEP" onAction="#sleepButtonAction">
+                <HBox.margin>
+                    <Insets left="5.0" right="5.0"/>
+                </HBox.margin>
+            </Button>
+            <Button fx:id="feed_button" prefHeight="26.0" prefWidth="100.0" text="FEED" onAction="#feedButtonAction">
+                <HBox.margin>
+                    <Insets left="5.0" right="5.0"/>
+                </HBox.margin>
+            </Button>
+            <Button fx:id="bath_button" prefHeight="26.0" prefWidth="100.0" text="BATH" onAction="#bathButtonAction">
+                <HBox.margin>
+                    <Insets left="5.0" right="5.0"/>
+                </HBox.margin>
+            </Button>
+        </HBox>
+    </bottom>
+</BorderPane>
