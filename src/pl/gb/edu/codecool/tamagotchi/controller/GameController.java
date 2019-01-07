@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
@@ -26,7 +27,6 @@ public class GameController {
     private Game game;
     private Timeline timeline;
     private KeyFrame keyFrame;
-    private int sleepTime = 30000;
 
     @FXML
     private HBox main_panel;
@@ -38,13 +38,10 @@ public class GameController {
     private ImageView pet_picture;
 
     @FXML
-    private Label energy_progress_bar_value;
+    private Label energy_progress_bar_value, hunger_progress_bar_value, hygiene_progress_bar_value;
 
     @FXML
-    private Label hunger_progress_bar_value;
-
-    @FXML
-    private Label hygiene_progress_bar_value;
+    private Button sleep_button, feed_button, bath_button;
 
     private Image image;
 
@@ -55,9 +52,11 @@ public class GameController {
     public void newGame() {
         game = new Game();
         timeline = new Timeline();
+
+        sleep_button.setText("SLEEP");
         image = new Image(game.getPet().getPicture());
         pet_picture.setImage(image);
-//        main_panel.styleProperty().set("-fx-background-color:" + game.getPet().getColor());
+        main_panel.styleProperty().set("-fx-background-color:" + game.getPet().getBackground());
 
         energy_progress_bar.setProgress(1);
         energy_progress_bar_value.setText("100%");
@@ -74,23 +73,21 @@ public class GameController {
             e.printStackTrace();
         }
 
-
         keyFrame = new KeyFrame(new Duration(1000), event -> {
 
             if (game.isPetAlive()) {
-                move();
+                setVisualParameters();
                 image = new Image(game.getPet().getPicture());
                 pet_picture.setImage(image);
                 main_panel.styleProperty().set("-fx-background-color:" + game.getPet().getBackground());
 
-                energy_progress_bar.setProgress(game.getPet().getEnergy());
-                energy_progress_bar_value.setText((int) (game.getPet().getEnergy() * 100) + "%");
+                setEnergyProgressBarValues();
+                setHungerProgressBarValues();
+                setHygieneProgressBarValues();
+                setBathButtonActions();
+                setFeedButtonActions();
+                setSleepButtonActions();
 
-                hygiene_progress_bar.setProgress(game.getPet().getHygiene());
-                hygiene_progress_bar_value.setText((int) (game.getPet().getHygiene() * 100) + "%");
-
-                hunger_progress_bar.setProgress(game.getPet().getHunger());
-                hunger_progress_bar_value.setText((int) (game.getPet().getHunger() * 100) + "%");
             } else {
                 timeline.stop();
                 try {
@@ -108,6 +105,60 @@ public class GameController {
         timeline.play();
     }
 
+    private void setEnergyProgressBarValues() {
+        double energy = game.getPet().getEnergy();
+        if (energy > 1) {
+            energy = 1;
+        }
+        energy_progress_bar.setProgress(energy);
+        energy_progress_bar_value.setText((int) (energy * 100) + "%");
+    }
+
+    private void setHygieneProgressBarValues() {
+        double hygiene = game.getPet().getHygiene();
+        if (hygiene > 1) {
+            hygiene = 1;
+        }
+        hygiene_progress_bar.setProgress(hygiene);
+        hygiene_progress_bar_value.setText((int) (hygiene * 100) + "%");
+    }
+
+    private void setHungerProgressBarValues() {
+        double hunger = game.getPet().getHunger();
+        if (hunger > 1) {
+            hunger = 1;
+        }
+        hunger_progress_bar.setProgress(hunger);
+        hunger_progress_bar_value.setText((int) (hunger * 100) + "%");
+    }
+
+    private void setBathButtonActions() {
+        boolean activityButtonFlag = game.getPet().isBathing();
+        feed_button.setDisable(activityButtonFlag);
+        bath_button.setDisable(activityButtonFlag);
+        sleep_button.setDisable(activityButtonFlag);
+    }
+
+    private void setFeedButtonActions() {
+        boolean activityButtonFlag = game.getPet().isEating();
+        feed_button.setDisable(activityButtonFlag);
+        bath_button.setDisable(activityButtonFlag);
+        sleep_button.setDisable(activityButtonFlag);
+    }
+
+    private void setSleepButtonActions() {
+        boolean activityButtonFlag = game.getPet().isSleeping();
+        if(activityButtonFlag) {
+            sleep_button.setText("WAKE UP");
+            feed_button.setDisable(activityButtonFlag);
+            bath_button.setDisable(activityButtonFlag);
+        } else {
+            sleep_button.setText("SLEEP");
+            feed_button.setDisable(activityButtonFlag);
+            bath_button.setDisable(activityButtonFlag);
+        }
+    }
+
     private void showWindow() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../view/end_game_modal.fxml"));
         final Scene scene = new Scene(root, 250, 150);
@@ -118,11 +169,10 @@ public class GameController {
         stage.show();
     }
 
-    //TODO
-//    zmienić nazwę funkcji
-    public void move() {
+    public void setVisualParameters() {
         double energy = game.getPet().getEnergy();
         Pet pet = game.getPet();
+
         if (energy >= 0 && energy < 0.01) {
             pet.setBackground("black");
             pet.setPicture("Gollum_death.jpg");
@@ -153,19 +203,16 @@ public class GameController {
 
     @FXML
     private void sleepButtonAction() {
-        System.out.println("SLEEP");
         game.getPet().setSleeping(!game.getPet().isSleeping());
     }
 
     @FXML
     private void feedButtonAction() {
-        System.out.println("FEED");
         game.getPet().setEating(true);
     }
 
     @FXML
     private void bathButtonAction() {
-        System.out.println("BATH");
         game.getPet().setBathing(true);
     }
 

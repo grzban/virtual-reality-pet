@@ -18,6 +18,7 @@ public class Pet {
 
     private void initialParameters() {
         picture = "Gollum_happy.png";
+        background = "green";
         energy = 1;
         hunger = 1;
         hygiene = 1;
@@ -50,7 +51,6 @@ public class Pet {
                 hunger += 0.1;
             } else {
                 hunger = 1;
-                waitForEndAction(i, endTime, "eat");
                 break;
             }
             petIsLive();
@@ -67,7 +67,6 @@ public class Pet {
                 hygiene += 0.05;
             } else {
                 hygiene = 1;
-                waitForEndAction(i, endTime, "bath");
                 break;
             }
             petIsLive();
@@ -83,13 +82,6 @@ public class Pet {
         sleepPerSecond();
     }
 
-    private void waitForEndAction(int start, int end, String action) {
-        for (int i = start; i < end; i++) {
-            petIsLive();
-            System.out.println("Waiting for " + action + " end " + i);
-        }
-    }
-
     private void sleepPerSecond() {
         try {
             Thread.sleep(1000);
@@ -99,15 +91,15 @@ public class Pet {
     }
 
     synchronized private void decreaseEnergy() {
-        energy -= 0.005;
+        energy -= 0.001;
     }
 
-    public void decreaseHunger() {
-        hunger -= 0.05;
+    synchronized public void decreaseHunger() {
+        hunger -= 0.005;
     }
 
-    public void decreaseHygiene() {
-        hygiene -= 0.001;
+    synchronized public void decreaseHygiene() {
+        hygiene -= 0.0005;
     }
 
     public double getEnergy() {
@@ -130,16 +122,8 @@ public class Pet {
         return hunger;
     }
 
-    public void setHunger(double hunger) {
-        this.hunger = hunger;
-    }
-
     public double getHygiene() {
         return hygiene;
-    }
-
-    public void setHygiene(double hygiene) {
-        this.hygiene = hygiene;
     }
 
     public boolean isSleeping() {

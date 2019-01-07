@@ -27,7 +27,8 @@ public class Game implements Runnable {
                 pet.eat();
             }
         }
-
+        pet.setPicture("Gollum_death.jpg");
+        pet.setBackground("black");
         System.out.println("Koniec wątku gry");
     }
 
