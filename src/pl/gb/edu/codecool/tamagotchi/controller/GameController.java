@@ -85,17 +85,7 @@ public class GameController {
 
             if (game.isPetAlive()) {
                 setVisualParameters();
-                image = new Image(pet.getPicture());
-                pet_picture.setImage(image);
-                main_panel.styleProperty().set("-fx-background-color:" + pet.getBackground());
 
-                setEnergyProgressBarValues();
-                setHungerProgressBarValues();
-                setHygieneProgressBarValues();
-
-                setBathButtonActions();
-                setFeedButtonActions();
-                setSleepButtonActions();
 
             } else {
                 timeline.stop();
@@ -104,13 +94,18 @@ public class GameController {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
             }
         });
 
         timeline.getKeyFrames().add(keyFrame);
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
+    }
+
+    private void setProgressBarValues() {
+        setEnergyProgressBarValues();
+        setHungerProgressBarValues();
+        setHygieneProgressBarValues();
     }
 
     private void setEnergyProgressBarValues() {
@@ -140,21 +135,27 @@ public class GameController {
         hunger_progress_bar_value.setText((int) (hunger * 100) + "%");
     }
 
-    private void setBathButtonActions() {
+    private void setButtonsStates() {
+        setFeedButtonState();
+        setSleepButtonState();
+        setBathButtonState();
+    }
+
+    private void setBathButtonState() {
         boolean activityButtonFlag = pet.isBathing();
         feed_button.setDisable(activityButtonFlag);
         bath_button.setDisable(activityButtonFlag);
         sleep_button.setDisable(activityButtonFlag);
     }
 
-    private void setFeedButtonActions() {
+    private void setFeedButtonState() {
         boolean activityButtonFlag = pet.isEating();
         feed_button.setDisable(activityButtonFlag);
         bath_button.setDisable(activityButtonFlag);
         sleep_button.setDisable(activityButtonFlag);
     }
 
-    private void setSleepButtonActions() {
+    private void setSleepButtonState() {
         boolean activityButtonFlag = pet.isSleeping();
         feed_button.setDisable(activityButtonFlag);
         bath_button.setDisable(activityButtonFlag);
@@ -176,15 +177,23 @@ public class GameController {
     }
 
     public void setVisualParameters() {
-        double energy = pet.getEnergy();
+        image = new Image(pet.getPicture());
+        pet_picture.setImage(image);
+        main_panel.styleProperty().set("-fx-background-color:" + pet.getBackground());
 
-        if (energy >= 0 && energy < 0.01) {
+        double energy = pet.getEnergy();
+        double hunger = pet.getHunger();
+
+        setButtonsStates();
+        setProgressBarValues();
+
+        if ((energy >= 0 && energy < 0.01) || (hunger >= 0  && hunger < 0.01)) {
             pet.setBackground("black");
             pet.setPicture("Gollum_death.jpg");
-        } else if (energy >= 0.01 && energy <= 0.2) {
+        } else if ((energy >= 0.01 && energy <= 0.2)) {
             pet.setPicture("Gollum_angry.png");
             pet.setBackground("red");
-        } else if (energy > 0.2 && energy < 0.5) {
+        } else if ((energy > 0.2 && energy < 0.5) || (hunger > 0.2  && hunger < 0.5)) {
             pet.setPicture("Gollum_imploring.png");
             pet.setBackground("orange");
         } else {
@@ -208,19 +217,16 @@ public class GameController {
     @FXML
     private void sleepButtonAction() {
         pet.setSleeping(!pet.isSleeping());
-        setSleepButtonActions();
     }
 
     @FXML
     private void feedButtonAction() {
         pet.setEating(true);
-        setFeedButtonActions();
     }
 
     @FXML
     private void bathButtonAction() {
         pet.setBathing(true);
-        setBathButtonActions();
     }
 
     public Pet getPet() {

@@ -12,6 +12,7 @@ public class Pet {
     private boolean sleeping;
     private boolean eating;
     private boolean bathing;
+    private boolean alive;
 
     public Pet() {
         initialParameters();
@@ -27,6 +28,7 @@ public class Pet {
         sleeping = false;
         eating = false;
         bathing = false;
+        alive = true;
 
         energyModifier = 1;
     }
@@ -95,12 +97,17 @@ public class Pet {
 
     synchronized private void decreaseEnergy() {
         changeEnergyModifier();
-        energy -= energyModifier * 0.001;
+        if (alive) {
+            energy -= energyModifier * 0.001;
+        } else {
+            energy = 0;
+            alive = false;
+        }
     }
 
     private void changeEnergyModifier() {
         if (hunger <= 0) {
-            energyModifier = 1.5;
+            energyModifier = 3;
         } else {
             energyModifier = 1;
         }
@@ -176,5 +183,13 @@ public class Pet {
 
     public void setBackground(String background) {
         this.background = background;
+    }
+
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public void setAlive(boolean alive) {
+        this.alive = alive;
     }
 }

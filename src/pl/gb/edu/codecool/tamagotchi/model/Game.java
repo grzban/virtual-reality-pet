@@ -32,7 +32,7 @@ public class Game implements Runnable {
     }
 
     public boolean isPetAlive() {
-        if (pet.getEnergy() > 0) {
+        if (pet.isAlive()) {
             return true;
         } else {
             return false;
