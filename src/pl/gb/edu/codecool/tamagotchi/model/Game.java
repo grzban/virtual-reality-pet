@@ -12,7 +12,7 @@ public class Game implements Runnable {
     public void run() {
         while (isPetAlive()) {
             pet.petIsLiving();
-            System.out.println("ENERGY\t" + pet.getEnergy() + "\tHYGIENE\t" + pet.getHygiene() + "\tHUNGER\t" + pet.getHygiene());
+            System.out.println("ENERGY\t" + pet.getEnergy() + "\tHYGIENE\t" + pet.getHygiene() + "\tHUNGER\t" + pet.getHunger());
 
             if(pet.isBathing()) {
                 pet.bath();

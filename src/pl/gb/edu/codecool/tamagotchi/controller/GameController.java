@@ -51,7 +51,7 @@ public class GameController {
         gameThreat.start();
     }
 
-    private void loadInitialParameters(){
+    private void loadInitialParameters() {
         pet = new Pet();
         game = new Game(pet);
         gameThreat = new Thread(game, "GAME");
@@ -80,8 +80,6 @@ public class GameController {
             e.printStackTrace();
         }
         KeyFrame keyFrame = new KeyFrame(new Duration(500), event -> {
-            pet_picture.setImage(image);
-            main_panel.styleProperty().set("-fx-background-color:" + pet.getBackground());
 
             if (game.isPetAlive()) {
                 setVisualParameters();
@@ -185,13 +183,11 @@ public class GameController {
         setButtonsStates();
         setProgressBarValues();
 
-        if (hunger >= 0 && hunger < 0.01) {
-            pet.petIsAngry();
-        } else if(energy <= 0) {
+        if (energy <= 0) {
             pet.petIsDead();
-        } else if ((energy >= 0.01 && energy <= 0.2)) {
+        } else if ((energy >= 0 && energy <= 0.2) || (hunger >= -1 && hunger <= 0.2)) {
             pet.petIsAngry();
-        } else if ((energy > 0.2 && energy < 0.5) || (hunger > 0.2  && hunger < 0.5)) {
+        } else if ((energy > 0.2 && energy < 0.5) || (hunger > 0.2 && hunger < 0.5)) {
             pet.petIsSad();
         } else {
             pet.petIsHappy();
