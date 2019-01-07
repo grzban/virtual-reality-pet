@@ -28,7 +28,6 @@ public class Main extends Application {
         primaryStage.setOnCloseRequest(event -> {
             System.out.println("pressed close button");
             controller.getPet().setAlive(false);
-//            controller.getPet().setSleeping(false);
         });
 
         primaryStage.setTitle("Tamagotchi - Virtual Reality Pet");
@@ -40,7 +39,7 @@ public class Main extends Application {
         return primaryStage;
     }
 
-    public static void setPrimaryStage(Stage primaryStage) {
+    private static void setPrimaryStage(Stage primaryStage) {
         Main.primaryStage = primaryStage;
     }
 

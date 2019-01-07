@@ -26,7 +26,6 @@ public class GameController {
 
     private Game game;
     private Timeline timeline;
-    private KeyFrame keyFrame;
     private Thread gameThreat;
     private Pet pet;
 
@@ -73,15 +72,14 @@ public class GameController {
         hunger_progress_bar_value.setText("100%");
     }
 
-    public void newGame() {
+    private void newGame() {
         loadInitialParameters();
         try {
             gameThreat.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        keyFrame = new KeyFrame(new Duration(500), event -> {
+        KeyFrame keyFrame = new KeyFrame(new Duration(500), event -> {
             pet_picture.setImage(image);
             main_panel.styleProperty().set("-fx-background-color:" + pet.getBackground());
 
@@ -176,7 +174,7 @@ public class GameController {
         stage.show();
     }
 
-    public void setVisualParameters() {
+    private void setVisualParameters() {
         image = new Image(pet.getPicture());
         pet_picture.setImage(image);
         main_panel.styleProperty().set("-fx-background-color:" + pet.getBackground());

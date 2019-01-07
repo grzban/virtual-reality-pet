@@ -32,7 +32,7 @@ public class Pet {
         energyModifier = 1;
     }
 
-    synchronized public void sleep() {
+    synchronized void sleep() {
         while (sleeping) {
             System.out.println("Sleep " + "\tENERGY\t" + energy);
             if (energy < 1) {
@@ -47,7 +47,7 @@ public class Pet {
         notify();
     }
 
-    synchronized public void eat() {
+    synchronized void eat() {
         while (hunger < 1) {
             System.out.println("Eating HUNGER\t" + hunger);
             hunger += 0.1;
@@ -59,7 +59,7 @@ public class Pet {
         notify();
     }
 
-    synchronized public void bath() {
+    synchronized void bath() {
         while (hygiene < 1) {
             System.out.println("Bath HYGIENE\t" + hygiene);
             hygiene += 0.05;
@@ -71,7 +71,7 @@ public class Pet {
         notify();
     }
 
-    public void petIsLiving() {
+    void petIsLiving() {
         decreaseHunger();
         decreaseHygiene();
         decreaseEnergy();
@@ -104,7 +104,7 @@ public class Pet {
         }
     }
 
-    synchronized public void decreaseHunger() {
+    private synchronized void decreaseHunger() {
         if (hunger <= 0) {
             hunger = 0;
         } else {
@@ -112,7 +112,7 @@ public class Pet {
         }
     }
 
-    synchronized public void decreaseHygiene() {
+    private synchronized void decreaseHygiene() {
         if (hygiene <= 0) {
             hygiene = 0;
         } else {
@@ -160,7 +160,7 @@ public class Pet {
         return picture;
     }
 
-    public void setPicture(String picture) {
+    void setPicture(String picture) {
         this.picture = picture;
     }
 
@@ -200,11 +200,11 @@ public class Pet {
         return background;
     }
 
-    public void setBackground(String background) {
+    void setBackground(String background) {
         this.background = background;
     }
 
-    public boolean isAlive() {
+    boolean isAlive() {
         return alive;
     }
 

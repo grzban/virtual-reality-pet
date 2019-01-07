@@ -29,27 +29,25 @@
     </top>
     <center>
         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-            <children>
-                <Label text="What do you want to do?" alignment="CENTER" font="$FONT_MESSAGE">
-                    <VBox.margin>
-                        <Insets bottom="10.0"/>
-                    </VBox.margin>
-                </Label>
-                <HBox alignment="CENTER">
-                    <Button fx:id="new_game_button" onAction="#newGameButtonAction" prefHeight="26.0" prefWidth="100.0"
-                            text="NEW GAME">
-                        <HBox.margin>
-                            <Insets left="5.0" right="5.0"/>
-                        </HBox.margin>
-                    </Button>
-                    <Button fx:id="end_game_button" onAction="#endGameButtonAction" prefHeight="26.0" prefWidth="100.0"
-                            text="END GAME">
-                        <HBox.margin>
-                            <Insets left="5.0" right="5.0"/>
-                        </HBox.margin>
-                    </Button>
-                </HBox>
-            </children>
+            <Label text="What do you want to do?" alignment="CENTER" font="$FONT_MESSAGE">
+                <VBox.margin>
+                    <Insets bottom="10.0"/>
+                </VBox.margin>
+            </Label>
+            <HBox alignment="CENTER">
+                <Button fx:id="new_game_button" onAction="#newGameButtonAction" prefHeight="26.0" prefWidth="100.0"
+                        text="NEW GAME">
+                    <HBox.margin>
+                        <Insets left="5.0" right="5.0"/>
+                    </HBox.margin>
+                </Button>
+                <Button fx:id="end_game_button" onAction="#endGameButtonAction" prefHeight="26.0" prefWidth="100.0"
+                        text="END GAME">
+                    <HBox.margin>
+                        <Insets left="5.0" right="5.0"/>
+                    </HBox.margin>
+                </Button>
+            </HBox>
         </VBox>
     </center>
 </BorderPane>

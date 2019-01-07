@@ -32,10 +32,6 @@ public class Game implements Runnable {
     }
 
     public boolean isPetAlive() {
-        if (pet.isAlive()) {
-            return true;
-        } else {
-            return false;
-        }
+        return pet.isAlive();
     }
 }
