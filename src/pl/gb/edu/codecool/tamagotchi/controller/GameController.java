@@ -187,9 +187,12 @@ public class GameController {
         setButtonsStates();
         setProgressBarValues();
 
-        if ((energy >= 0 && energy < 0.01)) {
+        if (energy >= 0 && energy < 0.01) {
             pet.setBackground("black");
             pet.setPicture("Gollum_death.jpg");
+        } else if (hunger >= 0 && hunger < 0.01) {
+            pet.setPicture("Gollum_angry.png");
+            pet.setBackground("red");
         } else if ((energy >= 0.01 && energy <= 0.2) || (hunger > 0.01  && hunger < 0.2)) {
             pet.setPicture("Gollum_angry.png");
             pet.setBackground("red");
